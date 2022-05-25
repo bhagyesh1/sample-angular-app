@@ -4,6 +4,8 @@ pipeline{
 
 	environment {
 		DOCKERHUB_CREDENTIALS=credentials('dockerHub')
+    DOCKERHUB_CREDENTIALS_PSW=6e1e4266-081b-4fa0-a1d7-7b07170fc103
+    DOCKERHUB_CREDENTIALS_USR=devops1010
 	}
 
 	stages {
@@ -19,7 +21,8 @@ pipeline{
 		stage('Login') {
 
 			steps {
-				bat 'docker login -u devops1010 --password-stdin 6e1e4266-081b-4fa0-a1d7-7b07170fc103'
+        bat 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+				//bat 'docker login -u devops1010 --password-stdin 6e1e4266-081b-4fa0-a1d7-7b07170fc103'
 			}
 		}
 
