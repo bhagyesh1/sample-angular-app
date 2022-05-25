@@ -5,8 +5,8 @@ pipeline {
            steps {
 
                 bat 'docker build -t devops1010/sample-angular:$BUILD_NUMBER  .'
-                 # bat 'docker tag sample-angular:v1 devops1010/sample-angular:v1 '
-               # bat 'docker tag sample-angular:v1 devops1010/sample-angular:$BUILD_NUMBER'
+                 // bat 'docker tag sample-angular:v1 devops1010/sample-angular:v1 '
+               // bat 'docker tag sample-angular:v1 devops1010/sample-angular:$BUILD_NUMBER'
 
           }
         }
@@ -15,7 +15,7 @@ pipeline {
 
             steps {
         withDockerRegistry([ credentialsId: "dockerHub", url: "" ]) {
-          #bat  'docker push devops1010/sample-angular:v1 '
+          //bat  'docker push devops1010/sample-angular:v1 '
           bat  'docker push devops1010/sample-angular:$BUILD_NUMBER'
         }
 
