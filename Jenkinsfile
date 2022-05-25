@@ -3,7 +3,7 @@ pipeline{
 	agent any
 
 	environment {
-		DOCKERHUB_CREDENTIALS=credentials('dockerHub')
+		//DOCKERHUB_CREDENTIALS=credentials('dockerHub')
     DOCKERHUB_CREDENTIALS_PSW='6e1e4266-081b-4fa0-a1d7-7b07170fc103'
     DOCKERHUB_CREDENTIALS_USR='devops1010'
 	}
@@ -41,5 +41,4 @@ pipeline{
         }
 	}
 
-	
 }
