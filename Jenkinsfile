@@ -16,8 +16,7 @@ pipeline {
 
       steps {
             
-        bat docker.withRegistry('https://registry.hub.docker.com', 'dockerHub')
-        //bat 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+        bat 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
         bat 'docker push devops1010/sample-angular:v1 '
         bat 'docker logout'
 
@@ -28,6 +27,7 @@ pipeline {
     stage('Run Docker container on Jenkins Agent') {
 
       steps {
+        
         bat "docker run -d -p 4030:80 devops1010/sample-angular:v1"
 
       }
