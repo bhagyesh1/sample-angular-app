@@ -16,7 +16,7 @@ pipeline {
 
       steps {
             
-        docker.withRegistry('https://registry.hub.docker.com', 'dockerHub')
+        bat docker.withRegistry('https://registry.hub.docker.com', 'dockerHub')
         //bat 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
         bat 'docker push devops1010/sample-angular:v1 '
         bat 'docker logout'
