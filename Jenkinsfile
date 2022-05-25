@@ -4,9 +4,8 @@ pipeline {
   stage('Docker Build and Tag') {
            steps {
 
-             bat 'docker build -t devops1010/sample-angular:${BUILD_NUMBER} .'
+             bat 'docker build -t devops1010/sample-angular:v1 .'
                  // bat 'docker tag sample-angular:v1 devops1010/sample-angular:v1 '
-             // bat 'docker tag sample-angular:v1 devops1010/sample-angular:${BUILD_NUMBER}'
 
           }
         }
@@ -15,8 +14,8 @@ pipeline {
 
             steps {
         withDockerRegistry([ credentialsId: "dockerHub", url: "" ]) {
-          //bat  'docker push devops1010/sample-angular:v1 '
-          bat  'docker push devops1010/sample-angular:${BUILD_NUMBER}'
+           bat  'docker push devops1010/sample-angular:v1 '
+          //bat  'docker push devops1010/sample-angular:${BUILD_NUMBER}'
         }
 
           }
@@ -25,7 +24,7 @@ pipeline {
       stage('Run Docker container on Jenkins Agent') {
 
             steps {
-              bat "docker run -d -p 4030:80 devops1010/sample-angular:${BUILD_NUMBER}"
+              bat "docker run -d -p 4030:80 devops1010/sample-angular:v1"
 
             }
         }
