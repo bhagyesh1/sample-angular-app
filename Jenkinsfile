@@ -1,40 +1,40 @@
-pipeline {
-  agent any
-  environment {
-    DOCKERHUB_CREDENTIALS = credentials('dockerHub')
-  }
-  stages {
-    stage('Docker Build and Tag') {
-      steps {
+pipeline{
 
-        bat 'docker build -t devops1010/sample-angular:v1 .'
+	agent any
 
-      }
-    }
+	environment {
+		DOCKERHUB_CREDENTIALS=credentials('dockerhub')
+	}
 
-    stage('Login & Publish image to Docker Hub') {
+	stages {
+	    
 
-      steps {
-            
-        bat 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-        bat 'docker push devops1010/sample-angular:v1 '
-        bat 'docker logout'
+		stage('Build') {
 
-      }
+			steps {
+				sh 'docker build -t devops1010/sample-angular:v1 .'
+			}
+		}
 
-    }
+		stage('Login') {
 
-    stage('Run Docker container on Jenkins Agent') {
+			steps {
+				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+			}
+		}
 
-      steps {
-        
-        bat "docker run -d -p 4030:80 devops1010/sample-angular:v1"
+		stage('Push') {
 
-      }
-   }
+			steps {
+				sh 'docker push devops1010/sample-angular:v1'
+			}
+		}
+	}
 
-
-  }
-  
+	post {
+		always {
+			sh 'docker logout'
+		}
+	}
 
 }
