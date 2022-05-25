@@ -5,8 +5,8 @@ pipeline {
            steps {
 
                 bat 'docker build -t sample-angular:v1  .'
-                  bat 'docker tag sample-angular devops1010/sample-angular:v1 '
-                bat 'docker tag sample-angular devops1010/sample-angular:$BUILD_NUMBER'
+                  bat 'docker tag sample-angular:v1 devops1010/sample-angular:v1 '
+                bat 'docker tag sample-angular:v1 devops1010/sample-angular:$BUILD_NUMBER'
 
           }
         }
