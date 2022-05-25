@@ -1,34 +1,31 @@
-pipeline {
+pipeline{
     agent any
- stages {
-  stage('Docker Build and Tag') {
-           steps {
-
-                bat 'docker build -t sample-angular:v1  .'
-                  bat 'docker tag sample-angular devops1010/sample-angular:v1 '
-                bat 'docker tag sample-angular devops1010/sample-angular:$BUILD_NUMBER'
-
-          }
-        }
-
-  stage('Publish image to Docker Hub') {
-
-            steps {
-        withDockerRegistry([ credentialsId: "dockerHub", url: "" ]) {
-          bat  'docker push devops1010/sample-angular:v1 '
-          bat  'docker push devops1010/sample-angular:$BUILD_NUMBER'
-        }
-
-          }
-        }
-
-      stage('Run Docker container on Jenkins Agent') {
-
-            steps {
-                bat "docker run -d -p 4030:80 devops1010/sample-angular"
-
-            }
-        }
-
+    options{
+        buildDiscarder(logRotator(numToKeepStr: '5', daysToKeepStr: '5'))
+        timestamps()
     }
+    environment{
+        
+        registry = "devops1010/sample-angular"
+        registryCredential = 'dockerHub'        
+    }
+    
+    stages{
+       stage('Building image') {
+      steps{
+        script {
+          dockerImage = docker.build registry + ":$BUILD_NUMBER"
+        }
+      }
+    }
+       stage('Deploy Image') {
+      steps{
+         script {
+            docker.withRegistry( '', registryCredential ) {
+            dockerImage.push()
+          }
+        }
+      }
+    }
+  }
 }
