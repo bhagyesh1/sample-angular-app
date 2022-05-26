@@ -26,16 +26,16 @@ pipeline{
           bat "docker run -d -p 4030:80 devops1010/sample-angular:$BUILD_NUMBER"
             }
         }
-       /*tage('Deploy Image') {
+       /*stage('Deploy Image') {
       steps{
          script {
            docker.withRegistry( '', registryCredential ) {
              dockerImage.push("$BUILD_NUMBER")
-              dockerImage.push('latest')*/
+              dockerImage.push('latest')
           
           }
         }
       }
-    }
+    }*/
   }
 }
