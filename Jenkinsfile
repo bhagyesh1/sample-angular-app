@@ -1,8 +1,16 @@
 pipeline{
     agent any
-    triggers{
-        cron('* * * * 1-5')
+  parameters {
+      string(name: 'PLANET', defaultValue: 'Earth', description: 'Which planet are we on?')
+      string(name: 'GREETING', defaultValue: 'Hello', description: 'How shall we greet?')
     }
+    triggers {
+        parameterizedCron('''
+            # leave spaces where you want them around the parameters. They'll be trimmed.
+            # we let the build run with the default name
+            * * * * * %GREETING=Hola;PLANET=Pluto
+            * * * * * %PLANET=Mars
+        ''')
     options{
         buildDiscarder(logRotator(numToKeepStr: '5', daysToKeepStr: '5'))
         timestamps()
