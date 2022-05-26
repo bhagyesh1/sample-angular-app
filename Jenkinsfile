@@ -21,8 +21,10 @@ pipeline{
        stage('Deploy Image') {
       steps{
          script {
-            docker.withRegistry( '', registryCredential ) {
+            withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+            bat "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
             dockerImage.push()
+          
           }
         }
       }
