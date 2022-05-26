@@ -25,7 +25,7 @@ pipeline{
       steps{
          script {
             withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-            bat "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+            docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}
             dockerImage.push()
           
           }
