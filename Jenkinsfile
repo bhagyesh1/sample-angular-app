@@ -1,7 +1,7 @@
 pipeline{
     agent any
     triggers{
-        cron "16 11 * * *"
+        cron "20 11 * * *"
     }
     options{
         buildDiscarder(logRotator(numToKeepStr: '5', daysToKeepStr: '5'))
