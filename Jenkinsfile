@@ -1,9 +1,10 @@
+properties([pipelineTriggers([pollSCM('5 19 * * *')])])	
 pipeline{
     agent any
-    triggers{
+    /*triggers{
         pollSCM ('20 14 * * *')
         //cron "31 11 * * *"
-    }
+    }*/
     options{
         buildDiscarder(logRotator(numToKeepStr: '5', daysToKeepStr: '5'))
         timestamps()
