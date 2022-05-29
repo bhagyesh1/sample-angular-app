@@ -1,4 +1,4 @@
-properties([pipelineTriggers([pollSCM('25 18 * * *')])])	
+properties([pipelineTriggers([pollSCM('38 18 * * *')])])	
 pipeline{
     agent any
     /*triggers{
