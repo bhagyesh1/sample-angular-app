@@ -1,7 +1,7 @@
 pipeline{
     agent any
     triggers{
-        pollSCM ('20 14 * * *')
+        pollSCM ('20 13 * * *')
         //cron "31 11 * * *"
     }
     options{
