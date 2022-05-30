@@ -1,8 +1,11 @@
 pipeline{
     agent any
     triggers{
-        pollSCM ('10 13 * * *')
-        //cron "31 11 * * *"
+      if BRANCH_NAME='dev'
+      pollSCM ('10 13 * * *')
+      if BRANCH_NAME='beta'
+      pollSCM ('25 13 * * *')
+       
     }
     options{
         buildDiscarder(logRotator(numToKeepStr: '5', daysToKeepStr: '5'))
