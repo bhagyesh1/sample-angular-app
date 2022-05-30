@@ -1,10 +1,10 @@
 pipeline{
     agent any
     triggers{
-      if BRANCH_NAME='dev'
-      pollSCM ('10 13 * * *')
-      if BRANCH_NAME='beta'
-      pollSCM ('25 13 * * *')
+      if $BRANCH_NAME='dev'
+          pollSCM ('10 13 * * *')
+      if $BRANCH_NAME='beta'
+          pollSCM ('25 13 * * *')
        
     }
     options{
