@@ -15,7 +15,7 @@ pipeline {
        stage('DEV Building image') {
       steps{
         script {
-          properties([pipelineTriggers([pollSCM('30 18 * * *')])])	
+          properties([pipelineTriggers([pollSCM('35 18 * * *')])])	
           dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
       }
@@ -29,7 +29,7 @@ pipeline {
         stage('BETA Building image') {
       steps{
         script {
-          properties([pipelineTriggers([pollSCM('35 18 * * *')])])	
+          properties([pipelineTriggers([pollSCM('40 18 * * *')])])	
           dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
       }
