@@ -12,17 +12,31 @@ pipeline {
     }
     
     stages{
-       stage('Building image') {
+       stage('DEV Building image') {
       steps{
         script {
-          properties([pipelineTriggers([pollSCM('10 18 * * *')])])	
+          properties([pipelineTriggers([pollSCM('30 18 * * *')])])	
           dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
       }
     }
-       stage('Run Docker container on Jenkins Agent') {
+       stage('Run Docker container on DEV Jenkins Agent') {
       steps {
           bat "docker run -d -p 4030:80 devops1010/sample-angular:$BUILD_NUMBER"
+            }
+        }
+
+        stage('BETA Building image') {
+      steps{
+        script {
+          properties([pipelineTriggers([pollSCM('35 18 * * *')])])	
+          dockerImage = docker.build registry + ":$BUILD_NUMBER"
+        }
+      }
+    }
+       stage('Run Docker container on BETA Jenkins Agent') {
+      steps {
+          bat "docker run -d -p 4031:80 devops1010/sample-angular:$BUILD_NUMBER"
             }
         }
        /*stage('Deploy Image') {
