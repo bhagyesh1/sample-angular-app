@@ -3,7 +3,7 @@ CRON_SETTINGS = BRANCH_NAME == "dev" ? '''10 16 * * *''' : ""
 // Multi-branch pipeline. Build once a day from a "beta" branch only
 CRON_SETTINGS = BRANCH_NAME == "beta" ? '''25 16 * * *''' : ""
 // Multi-branch pipeline. Build once a day from a "master" branch only
-CRON_SETTINGS = BRANCH_NAME == "master" ? '''59 16 * * *''' : ""
+CRON_SETTINGS = BRANCH_NAME == "main" ? '''59 16 * * *''' : ""
 
 pipeline{
     agent any
