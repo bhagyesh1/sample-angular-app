@@ -1,6 +1,5 @@
 // Multi-branch pipeline. Build once a day from a "dev" branch only
-CRON_SETTINGS = BRANCH_NAME == "dev" ? '''15 17 * * * % ENV=DEV''' : ""
-//CRON_SETTINGS = BRANCH_NAME == "dev" ? '''40 16 * * *''' : ""
+CRON_SETTINGS = BRANCH_NAME == "dev" ? '''46 17 * * *''' : ""
 
 
 pipeline {
