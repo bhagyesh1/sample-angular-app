@@ -8,8 +8,8 @@ CRON_SETTINGS = BRANCH_NAME == "main" ? '''59 16 * * *''' : ""
 pipeline{
     agent any
     triggers{
-        parameterizedCron(CRON_SETTINGS)
-      
+      cron(CRON_SETTINGS)
+      //parameterizedCron(CRON_SETTINGS)
     }
     options{
         buildDiscarder(logRotator(numToKeepStr: '5', daysToKeepStr: '5'))
