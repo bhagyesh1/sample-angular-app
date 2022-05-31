@@ -13,6 +13,9 @@ pipeline {
     
     stages{
        stage('DEV Building image') {
+           when {
+                branch 'dev'
+            }
       steps{
         script {
           properties([pipelineTriggers([pollSCM('35 18 * * *')])])	
@@ -27,6 +30,9 @@ pipeline {
         }
 
         stage('BETA Building image') {
+            when {
+                branch 'beta'
+            }
       steps{
         script {
           properties([pipelineTriggers([pollSCM('40 18 * * *')])])	
