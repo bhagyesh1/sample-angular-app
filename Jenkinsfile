@@ -1,8 +1,14 @@
+// Multi-branch pipeline. Build once a day from a "dev" branch only
+CRON_SETTINGS = BRANCH_NAME == "dev" ? '''20 15 * * *'''
+// Multi-branch pipeline. Build once a day from a "beta" branch only
+CRON_SETTINGS = BRANCH_NAME == "beta" ? '''40 15 * * *'''
+// Multi-branch pipeline. Build once a day from a "master" branch only
+CRON_SETTINGS = BRANCH_NAME == "master" ? '''10 16 * * *'''
+
 pipeline{
     agent any
     triggers{
-        parameterizedCron(env.BRANCH_NAME == "dev" ? "11 13 * * *" : "")
-        //pollSCM ('20 13 * * *')
+        parameterizedCron(CRON_SETTINGS)
       
     }
     options{
