@@ -1,15 +1,6 @@
-pipeline{
+pipeline {
     agent any 
-    script {
-                    
-    if (env.BRANCH_NAME == 'dev') 
-          triggers { pollSCM ('20 11 * * *')}
-    if (env.BRANCH_NAME == 'beta') 
-           triggers { pollSCM ('20 13 * * *')}
-    if (env.BRANCH_NAME == 'main') 
-          triggers { pollSCM ('40 13 * * *')}
-    }
-
+    
     options{
         buildDiscarder(logRotator(numToKeepStr: '5', daysToKeepStr: '5'))
         timestamps()
@@ -21,6 +12,21 @@ pipeline{
     }
     
     stages{
+
+
+        stage('Branch wise poll scm') {
+      steps{
+        script {
+                    
+          if (env.BRANCH_NAME == 'dev') 
+                triggers { pollSCM ('20 11 * * *')}
+          if (env.BRANCH_NAME == 'beta') 
+                triggers { pollSCM ('20 13 * * *')}
+          if (env.BRANCH_NAME == 'main') 
+                triggers { pollSCM ('40 13 * * *')}
+    }
+      }
+    }
        stage('Building image') {
       steps{
         script {
