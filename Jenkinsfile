@@ -1,7 +1,7 @@
 pipeline{
     agent any
     triggers{
-        parameterizedCron(env.BRANCH_NAME == "dev" ? "11 13 * * *")
+        parameterizedCron(env.BRANCH_NAME == "dev" ? "11 13 * * *" : "")
         //pollSCM ('20 13 * * *')
       
     }
