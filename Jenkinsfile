@@ -1,6 +1,3 @@
-// Multi-branch pipeline. Build once a day from a "dev" branch only
-CRON_SETTINGS = env.BRANCH_NAME == "dev" ? "0 12 * * * % RUN_E2E=true;MODE=parallel;SHOULD_BUILD_RELEASE=no" : ""
-
 
 pipeline {
     agent any
