@@ -18,7 +18,7 @@ pipeline {
             }
       steps{
         script {
-          properties([pipelineTriggers([pollSCM('05 19 * * *')])])	
+          properties([pipelineTriggers([pollSCM('*/5 * * * *')])])	
           dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
       }
@@ -35,7 +35,7 @@ pipeline {
             }
       steps{
         script {
-          properties([pipelineTriggers([pollSCM('15 19 * * *')])])	
+          properties([pipelineTriggers([pollSCM('*/10 * * * *')])])	
           dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
       }
