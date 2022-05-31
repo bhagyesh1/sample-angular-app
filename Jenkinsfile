@@ -1,12 +1,15 @@
 pipeline{
-    agent any
-    triggers{
-      if $BRANCH_NAME='dev'
-          pollSCM ('10 13 * * *')
-      if $BRANCH_NAME='beta'
-          pollSCM ('25 13 * * *')
-       
+    agent any 
+    script {
+                    
+    if (env.BRANCH_NAME == 'dev') 
+          triggers { pollSCM ('10 13 * * *')}
+    if (env.BRANCH_NAME == 'beta') 
+           triggers { pollSCM ('20 13 * * *')}
+    if (env.BRANCH_NAME == 'main') 
+          triggers { pollSCM ('40 13 * * *')}
     }
+
     options{
         buildDiscarder(logRotator(numToKeepStr: '5', daysToKeepStr: '5'))
         timestamps()
