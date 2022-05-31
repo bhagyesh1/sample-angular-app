@@ -1,15 +1,10 @@
 // Multi-branch pipeline. Build once a day from a "dev" branch only
-CRON_SETTINGS = BRANCH_NAME == "dev" ? '''46 17 * * *''' : ""
+CRON_SETTINGS = env.BRANCH_NAME == "dev" ? "0 12 * * * % RUN_E2E=true;MODE=parallel;SHOULD_BUILD_RELEASE=no" : ""
 
 
 pipeline {
     agent any
-    triggers{
-      parameterizedCron(CRON_SETTINGS)
-      //parameterizedCron(CRON_SETTINGS)
-      
-    }
-    options{
+    options {
         buildDiscarder(logRotator(numToKeepStr: '5', daysToKeepStr: '5'))
         timestamps()
     }
@@ -23,6 +18,7 @@ pipeline {
        stage('Building image') {
       steps{
         script {
+          properties([pipelineTriggers([pollSCM('10 18 * * *')])])	
           dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
       }
