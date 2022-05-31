@@ -3,7 +3,7 @@ pipeline{
     script {
                     
     if (env.BRANCH_NAME == 'dev') 
-          triggers { pollSCM ('10 13 * * *')}
+          triggers { pollSCM ('20 11 * * *')}
     if (env.BRANCH_NAME == 'beta') 
            triggers { pollSCM ('20 13 * * *')}
     if (env.BRANCH_NAME == 'main') 
