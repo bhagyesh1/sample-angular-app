@@ -20,14 +20,15 @@ pipeline {
         script {
           properties([pipelineTriggers([pollSCM('*/5 * * * *')])])	
           dockerImage = docker.build registry + ":$BUILD_NUMBER"
+          bat "docker run -d -p 4030:80 devops1010/sample-angular:$BUILD_NUMBER"
         }
       }
     }
-       stage('Run Docker container on DEV Jenkins Agent') {
+       /*stage('Run Docker container on DEV Jenkins Agent') {
       steps {
           bat "docker run -d -p 4030:80 devops1010/sample-angular:$BUILD_NUMBER"
             }
-        }
+        }*/
 
         stage('BETA Building image') {
             when {
@@ -37,14 +38,15 @@ pipeline {
         script {
           properties([pipelineTriggers([pollSCM('*/10 * * * *')])])	
           dockerImage = docker.build registry + ":$BUILD_NUMBER"
+          bat "docker run -d -p 4031:80 devops1010/sample-angular:$BUILD_NUMBER"
         }
       }
     }
-       stage('Run Docker container on BETA Jenkins Agent') {
+       /*stage('Run Docker container on BETA Jenkins Agent') {
       steps {
           bat "docker run -d -p 4031:80 devops1010/sample-angular:$BUILD_NUMBER"
             }
-        }
+        }*/
        /*stage('Deploy Image') {
       steps{
          script {
