@@ -3,7 +3,7 @@ CRON_SETTINGS = BRANCH_NAME == "dev" ? '''05 17 * * *'''
 //CRON_SETTINGS = BRANCH_NAME == "dev" ? '''40 16 * * *''' : ""
 
 
-pipeline{
+pipeline {
     agent any
     triggers{
       cron(CRON_SETTINGS)
@@ -45,4 +45,4 @@ pipeline{
       }
     }*/
   }
- }
+}
