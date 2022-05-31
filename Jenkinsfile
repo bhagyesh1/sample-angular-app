@@ -1,12 +1,12 @@
 // Multi-branch pipeline. Build once a day from a "dev" branch only
-CRON_SETTINGS = BRANCH_NAME == "dev" ? '''05 17 * * *'''
+CRON_SETTINGS = '''10 17 * * * % ENV=DEV''' : ""
 //CRON_SETTINGS = BRANCH_NAME == "dev" ? '''40 16 * * *''' : ""
 
 
 pipeline {
     agent any
     triggers{
-      cron(CRON_SETTINGS)
+      parameterizedCron(CRON_SETTINGS)
       //parameterizedCron(CRON_SETTINGS)
       
     }
