@@ -48,7 +48,7 @@ pipeline {
             }
       steps{
         script {
-          properties([pipelineTriggers([pollSCM('*/10 * * * *')])])	
+          properties([pipelineTriggers([pollSCM('*/20 * * * *')])])	
           dockerImage = docker.build registry + ":$env.BRANCH_NAME-$BUILD_NUMBER"
           bat "docker run -d -p 4032:80 devops1010/sample-angular:$env.BRANCH_NAME-$BUILD_NUMBER"
         }
