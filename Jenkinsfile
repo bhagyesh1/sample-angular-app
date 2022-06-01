@@ -19,14 +19,14 @@ pipeline {
       steps{
         script {
           properties([pipelineTriggers([pollSCM('*/5 * * * *')])])	
-          dockerImage = docker.build registry + ":$env.BRANCH_NAME,$BUILD_NUMBER"
-          bat "docker run -d -p 4030:80 devops1010/sample-angular:${'env.BRANCH_NAME'}${'BUILD_NUMBER'}"
+          dockerImage = docker.build registry + ":$env.BRANCH_NAME-$BUILD_NUMBER"
+          bat "docker run -d -p 4030:80 devops1010/sample-angular:$env.BRANCH_NAME-$BUILD_NUMBER"
         }
       }
     }
        /*stage('Run Docker container on DEV Jenkins Agent') {
       steps {
-          bat "docker run -d -p 4030:80 devops1010/sample-angular:${'env.BRANCH_NAME'}${'BUILD_NUMBER'}"
+          bat "docker run -d -p 4030:80 devops1010/sample-angular:$env.BRANCH_NAME-$BUILD_NUMBER"
             }
         }*/
 
@@ -37,14 +37,14 @@ pipeline {
       steps{
         script {
           properties([pipelineTriggers([pollSCM('*/10 * * * *')])])	
-          dockerImage = docker.build registry + ":${'env.BRANCH_NAME'}${'BUILD_NUMBER'}"
-          bat "docker run -d -p 4031:80 devops1010/sample-angular:${'env.BRANCH_NAME'}${'BUILD_NUMBER'}"
+          dockerImage = docker.build registry + ":$env.BRANCH_NAME-$BUILD_NUMBER"
+          bat "docker run -d -p 4031:80 devops1010/sample-angular:$env.BRANCH_NAME-$BUILD_NUMBER"
         }
       }
     }
        /*stage('Run Docker container on BETA Jenkins Agent') {
       steps {
-          bat "docker run -d -p 4031:80 devops1010/sample-angular:${'env.BRANCH_NAME'}${'BUILD_NUMBER'}"
+          bat "docker run -d -p 4031:80 devops1010/sample-angular:$env.BRANCH_NAME-$BUILD_NUMBER"
             }
         }*/
        /*stage('Deploy Image') {
