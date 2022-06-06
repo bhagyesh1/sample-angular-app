@@ -6,19 +6,19 @@ pipeline {
         timestamps()
     }
     environment{
-        
+
         registry = "devops1010/sample-angular"
         registryCredential = 'dockerHub'
     }
-    
+
     stages{
-       stage('DEV Branch Building image') {
+       stage('DEV Branch Building image & run') {
            when {
                 branch 'dev'
             }
       steps{
         script {
-          properties([pipelineTriggers([pollSCM('*/5 * * * *')])])	
+          properties([pipelineTriggers([pollSCM('*/5 * * * *')])])
           dockerImage = docker.build registry + ":$env.BRANCH_NAME-$BUILD_NUMBER"
           bat "docker run -d -p 4030:80 devops1010/sample-angular:$env.BRANCH_NAME-$BUILD_NUMBER"
         }
@@ -30,25 +30,25 @@ pipeline {
             }
         }*/
 
-        stage('BETA Branch Building image') {
+        stage('BETA Branch Building image & run') {
             when {
                 branch 'beta'
             }
       steps{
         script {
-          properties([pipelineTriggers([pollSCM('*/10 * * * *')])])	
+          properties([pipelineTriggers([pollSCM('*/10 * * * *')])])
           dockerImage = docker.build registry + ":$env.BRANCH_NAME-$BUILD_NUMBER"
           bat "docker run -d -p 4031:80 devops1010/sample-angular:$env.BRANCH_NAME-$BUILD_NUMBER"
         }
       }
     }
-        stage('MAIN Branch Building image') {
+        stage('MAIN Branch Building image & run') {
             when {
                 branch 'main'
             }
       steps{
         script {
-          properties([pipelineTriggers([pollSCM('*/20 * * * *')])])	
+          properties([pipelineTriggers([pollSCM('*/20 * * * *')])])
           dockerImage = docker.build registry + ":$env.BRANCH_NAME-$BUILD_NUMBER"
           bat "docker run -d -p 4032:80 devops1010/sample-angular:$env.BRANCH_NAME-$BUILD_NUMBER"
         }
@@ -65,7 +65,7 @@ pipeline {
            docker.withRegistry( '', registryCredential ) {
              dockerImage.push("$BUILD_NUMBER")
               dockerImage.push('latest')
-          
+
           }
         }
       }
